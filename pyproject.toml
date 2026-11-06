@@ -1,6 +1,6 @@
 [project]
 name = "file-line-counter-lib"
-version = "0.1.0"
+version = "0.1.1"
 description = "Streams files line by line to count total lines, with options to exclude blank and comment lines."
 requires-python = ">=3.10"
 dependencies = []
