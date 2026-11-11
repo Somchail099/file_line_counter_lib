@@ -23,3 +23,10 @@ print(result.effective)  # 2
 The library exists for the common case of reporting "lines of code" over files that may be too large to read into a list. The trade-off is simplicity: only two filtering conventions are supported — a blank line is one that is empty after stripping whitespace, and a comment line is one whose first non-whitespace character is `#`. If your files use a different comment marker or multi-line comments, this library will not handle them.
 
 The edge you will hit: a line containing only `#` is treated as a comment, not as blank, so with both `skip_blank=True` and `skip_comments=True` it is excluded exactly once. Files without a trailing newline still count their final line. Malformed bytes are replaced rather than raising, so binary input produces a deterministic count.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
